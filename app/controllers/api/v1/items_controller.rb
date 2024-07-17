@@ -5,9 +5,8 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    item = Item.find_by(id: params[:id])
-    if item
-      render json: item, status: 200
+    if @item
+      render json: @item, status: 200
     else
       render json: {error: "Item not found"}
     end
@@ -30,6 +29,11 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   private
+
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
     def item_params
       params.require(:item).permit([
         :title,
