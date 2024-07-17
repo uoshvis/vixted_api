@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authenticated, only: [:create]
   rescue_from ActiveRecord::RecordInvalid, with: :handle_invalid_record
   
   def index
