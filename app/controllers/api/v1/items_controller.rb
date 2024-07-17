@@ -1,4 +1,5 @@
 class Api::V1::ItemsController < ApplicationController
+  before_action :set_item, only: [:show, :update] # :destroy 
   before_action :authenticated, only: [:create]
   
   def index
@@ -27,6 +28,14 @@ class Api::V1::ItemsController < ApplicationController
       render json: item, status: 200
     else
       render json: {error: "Error creating item"}
+    end
+  end
+
+  def update
+    if @item.update(item_params)
+      render json: @item, status: 200
+    else
+      render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
