@@ -1,6 +1,7 @@
-class Api::V1::ItemsController < ApplicationController
+class Api::V1::ItemsController < ApplicationController  
   before_action :set_item, only: [:show, :update] # :destroy 
   before_action :authenticated, only: [:create]
+  before_action :authorized, only: [:update]
   
   def index
     items = Item.all
@@ -45,11 +46,18 @@ class Api::V1::ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-    def item_params
-      params.require(:item).permit([
-        :title,
-        :description,
-        :price
-      ])
+  def item_params
+    params.require(:item).permit([
+      :title,
+      :description,
+      :price
+    ])
+  end
+
+  def authorized
+    unless @item.user == current_user
+      render json: { error: 'Not Authorized' }, status: :unauthorized
     end
+  end
+  
 end
