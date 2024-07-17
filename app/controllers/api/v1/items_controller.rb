@@ -19,6 +19,9 @@ class Api::V1::ItemsController < ApplicationController
       description: item_params[:description],
       price: item_params[:price],
     )
+
+    item.user_id = current_user.id
+    
     if item.save
       render json: item, status: 200
     else
