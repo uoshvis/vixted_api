@@ -1,7 +1,7 @@
 class Api::V1::ItemsController < ApplicationController  
-  before_action :set_item, only: [:show, :update] # :destroy 
-  before_action :authenticated, only: [:create]
-  before_action :authorized, only: [:update]
+  before_action :set_item, only: [:show, :update, :destroy]
+  before_action :authenticated, only: [:create, :update, :destroy]
+  before_action :authorized, only: [:update, :destroy]
   
   def index
     items = Item.all
@@ -35,6 +35,14 @@ class Api::V1::ItemsController < ApplicationController
   def update
     if @item.update(item_params)
       render json: @item, status: 200
+    else
+      render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @item.destroy
+      render json: { message: 'Item deleted successfully' }, status: :ok
     else
       render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
     end
