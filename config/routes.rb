@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:index, :show, :create]
+      resources :users, only: [:index, :show, :create] do
+        resources :items, only: [:index, :show]
+      end
       resources :items
       # Auth routes
       get "/me", to: "users#me"

@@ -4,7 +4,11 @@ class Api::V1::ItemsController < ApplicationController
   before_action :authorized, only: [:update, :destroy]
   
   def index
-    items = Item.all
+    if params[:user_id]
+      items = User.find_by(id: params[:user_id]).items
+    else
+      items = Item.all
+    end
     render json: items, status: 200
   end
 
