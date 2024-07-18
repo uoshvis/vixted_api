@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       resources :items
       # Auth routes
       get "/me", to: "users#me"
+      post "/auth/login", to: "auth#login"
     end
   end
-  post "/auth/login", to: "auth#login"
 end
