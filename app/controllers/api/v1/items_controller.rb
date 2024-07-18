@@ -41,7 +41,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.destroy
+    if @item.delete
       render json: { message: 'Item deleted successfully' }, status: :ok
     else
       render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
