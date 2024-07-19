@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::API  
   before_action :authenticated
-  rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
-  rescue_from ActionController::ParameterMissing, with: :handle_param_missing
-  rescue_from ActiveRecord::RecordInvalid, with: :handle_invalid_record
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from ActionController::ParameterMissing, with: :param_missing
+  rescue_from ActiveRecord::RecordInvalid, with: :invalid_record
 
   def encode_token(payload)
     JWT.encode(payload, 'hello123') 
@@ -35,15 +35,15 @@ class ApplicationController < ActionController::API
 
   private
 
-  def handle_not_found(e)
+  def not_found(e)
     render json: { error: e }, status: :not_found
   end
 
-  def handle_param_missing
+  def param_missing
     render json: { error: 'Missing parameter' }, status: :unprocessable_entity
   end
 
-  def handle_invalid_record(e)
+  def invalid_record(e)
     render json: { error: e }, status: :unprocessable_entity
   end
 
