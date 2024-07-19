@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  description: MyString
+  title: TitleOne
+  description: Desc One
   price: 1.5
+  user_id: 1
 
 two:
-  title: MyString
-  description: MyString
+  title: TitleTwo
+  description: Desc Two
   price: 1.5
+  user_id: 2
