@@ -22,17 +22,13 @@ class Api::V1::ItemsController < ApplicationController
     item.user_id = current_user.id
     
     if item.save!
-      render json: item, status: 200
-    else
-      render json: {error: "Error creating item"}
+      render json: item, status: :created
     end
   end
 
   def update
-    if @item.update(item_params)
-      render json: @item, status: 200
-    else
-      render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
+    if @item.update!(item_params)
+      render json: @item, status: :accepted
     end
   end
 
@@ -45,7 +41,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   private
-
+  
   def set_item
     @item = Item.find(params[:id])
   end
