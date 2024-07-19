@@ -8,12 +8,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    user = User.find_by(id: params[:id])
-    if user
-      render json: user, status: 200
-    else
-      render json: {error: "User not found"}
-    end
+    render json: User.find(params[:id]), status: :ok
   end
 
   def create 
