@@ -46,7 +46,5 @@ class ApplicationController < ActionController::API
   def invalid_record(e)
     render json: { error: e }, status: :unprocessable_entity
   end
-
-
-
+  
 end
