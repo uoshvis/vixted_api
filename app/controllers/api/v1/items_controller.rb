@@ -13,11 +13,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    if @item
-      render json: @item, status: 200
-    else
-      render json: {error: "Item not found"}
-    end
+      render json: @item, status: :ok
   end
 
   def create
