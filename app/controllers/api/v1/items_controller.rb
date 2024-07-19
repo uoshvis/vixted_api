@@ -9,7 +9,7 @@ class Api::V1::ItemsController < ApplicationController
     else
       items = Item.all
     end
-    render json: items, status: 200
+    render json: items, status: :ok
   end
 
   def show
