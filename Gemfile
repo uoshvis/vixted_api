@@ -56,3 +56,7 @@ gem 'bcrypt'
 gem 'jwt'
 
 gem 'rack-cors'
+
+group :development, :test do
+  gem 'factory_bot_rails'
+end
