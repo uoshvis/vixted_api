@@ -1,12 +1,18 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
+  test "user model valid with factory" do
+    @user = FactoryBot.create(:user)
+    assert @user.valid?, "invalid user"
+    puts "user model valid"
+  end 
+
   test "user should be valid" do  
     user = User.new(username: "Bubble", email: "mail@mail.com", password: "pass")
     assert user.valid?
     puts "user is valid"
-  end
 
+  end
   test "name should be present" do
     user = User.new(username: "   ", email: "mail@mail.com", password: "pass")
     assert_not user.valid?, "username is empty string"
@@ -23,6 +29,13 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(username: "user", email: "   ", password: "pass")
     assert_not user.valid?, "email is empty string"
     puts "email is present"
+  end
+
+  test "user model item_count valid" do
+    user_id =  FactoryBot.create(:item).user_id
+    user =  User.find(user_id)
+    assert_equal user.item_count, 1, "invalid user item_count"
+    puts "user model item_count valid"
   end
 
 end

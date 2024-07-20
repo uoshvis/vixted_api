@@ -1,9 +1,11 @@
 require "test_helper"
 
 class ItemTest < ActiveSupport::TestCase
-  def test_valid
-    assert items(:one).valid?, "invalid fixture"
+  test "item model valid" do
+    item = FactoryBot.create(:item)
+    assert item.valid?, "invalid item"
     assert_not Item.new.valid?, "empty Item should be invalid"
-    puts "item fixture is valid"
+    puts "item model valid"
   end
+  
 end
