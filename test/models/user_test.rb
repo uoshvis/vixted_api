@@ -2,7 +2,7 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   test "user model valid with factory" do
-    @user = FactoryBot.create(:user)
+    @user = create(:user)
     assert @user.valid?, "invalid user"
     puts "user model valid"
   end 
@@ -32,10 +32,17 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "user model item_count valid" do
-    user_id =  FactoryBot.create(:item).user_id
+    user_id =  create(:item).user_id
     user =  User.find(user_id)
     assert_equal user.item_count, 1, "invalid user item_count"
     puts "user model item_count valid"
+  end
+
+  test "user model user with many items" do
+    assert_equal user_with_items.items.length, 5, "invalid user item count"
+    user = User.all.first
+    assert_equal user.item_count, 5, "invalid user item_count"
+    puts "user model user with many items"
   end
 
 end
