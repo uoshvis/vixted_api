@@ -2,8 +2,8 @@ require "test_helper"
 
 class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     
-  def get_token
-    @user = create(:user)
+  setup do
+    @user = CustomFunctions.create_user_with_items
     post "/api/v1/auth/login",
       params: {username: @user.username, password: @user.password},
       as: :json
@@ -12,13 +12,11 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "test get_token" do
-    get_token
     assert !!@token, 'no token'
     puts "logins and gets user token"
   end
 
   test "should get user index" do
-    get_token
     get "/api/v1/users", headers: { Authorization: "Bearer #{@token}" }
     assert_response :success, "bad login"
     assert_equal response.parsed_body.length, User.all.count, "user count does not match"
@@ -34,12 +32,21 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show" do
-    get_token
     get "/api/v1/users/#{@user.id}", headers: { Authorization: "Bearer #{@token}" }
     assert_response :success
     json_response = JSON.parse(response.body)
     assert_not_empty json_response
     assert_equal json_response["username"],  @user.username
+  end
+
+  test "should get user info with items" do
+    get "/api/v1/me", headers: { Authorization: "Bearer #{@token}" }
+    assert_response :success
+    json_response = JSON.parse(response.body)
+    assert_not_empty json_response
+    assert_equal json_response["username"],  @user.username
+    assert json_response["items"].kind_of?(Array)
+    assert_equal json_response["items"].size,  @user.items.size
   end
   
   test "should create user with valid attributes" do

@@ -1,6 +1,6 @@
 
 module CustomFunctions
-
+  # creates and returns
   def self.create_users_with_items(user_count: 5, items_per_user: 3)
     users = []
 
@@ -14,7 +14,8 @@ module CustomFunctions
 
     users
   end
-  # create a user with items
+
+  # create a user with #items
   def self.create_user_with_items(item_count: 5)
     FactoryBot.create(:user) do |user|
       FactoryBot.create_list(:item, item_count, user: user)

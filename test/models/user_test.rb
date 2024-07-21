@@ -39,7 +39,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "user model user with many items" do
-    assert_equal generate_user_with_items.items.length, 5, "invalid user item count"
+    user = CustomFunctions.create_user_with_items
+    assert_equal user.items.length, 5, "invalid user item count"
     user = User.all.first
     assert_equal user.item_count, 5, "invalid user item_count"
     puts "user model user with many items"

@@ -9,4 +9,15 @@ class ItemTest < ActiveSupport::TestCase
     puts "item model valid"
   end
   
+  test "should create item with valid attributes" do
+    user = create(:user)
+    item = create(:item, user: user)
+    
+    assert item.valid?
+    assert_equal user, item.user
+    assert_not_nil item.title
+    assert_not_nil item.description
+    assert item.price > 0
+  end
+  
 end
