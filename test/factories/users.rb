@@ -1,11 +1,4 @@
 FactoryBot.define do
-  factory :item do
-    title { "factory item title" }
-    description { "factory item description" }
-    price {9.87}
-    user
-  end
-
   factory :user do
     sequence(:username) { |n| "user#{n}" }
     sequence(:email) { |n| "user#{n}@mail.com" }
