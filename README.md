@@ -31,7 +31,7 @@ This project is designed to provide a basic understanding of how to create a RES
 
 - RESTful API endpoints for CRUD operations
 - JSON responses
-- Basic authentication (JWT)
+- Basic authentication (JWT) and authorization
 - Error handling and validation
 - Testing
 
@@ -85,13 +85,15 @@ rails test
 List of available API endpoints:
 
 Item Endpoints
-* `GET /items` - List all item
+* `GET /items` - List all items
 * `GET /items/:id` - Get a specific item
 * `POST /items` - Create a new item
 * `PUT /items/:id` - Update a specific item
 * `DELETE /items/:id` - Delete a specific item
 
 #### Example Request and Response
+
+
 
 ## Technologies Used
 
