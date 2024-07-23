@@ -59,4 +59,4 @@ group :development, :test do
 end
 
 # For deployment on Render
-gem 'net-protocol', '~> 0.2.1'
+gem 'net-pop', github: 'ruby/net-pop'
