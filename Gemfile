@@ -57,3 +57,6 @@ gem 'rack-cors'
 group :development, :test do
   gem 'factory_bot_rails'
 end
+
+# For deployment on Render
+gem 'net-protocol', '~> 0.2.1'

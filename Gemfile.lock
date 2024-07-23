@@ -223,6 +223,7 @@ DEPENDENCIES
   debug
   factory_bot_rails
   jwt
+  net-protocol (~> 0.2.1)
   pg
   puma (>= 5.0)
   rack-cors
