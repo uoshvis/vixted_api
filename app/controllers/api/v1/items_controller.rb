@@ -13,7 +13,20 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-      render json: @item, status: :ok
+    render json: @item, status: :ok
+  end
+
+  def search    
+    if params[:title].present? && params[:description].present?
+      items = Item.where('title LIKE ? OR description LIKE ?', "%#{params[:title]}%", "%#{params[:description]}%")
+    elsif params[:title].present?
+      items = Item.where('title LIKE ?', "%#{params[:title]}%")
+    elsif params[:description].present?
+      items = Item.where('description LIKE ?', "%#{params[:description]}%")
+    else
+      items = Item.none # Return an empty ActiveRecord relation if no params are provided
+    end
+    render json: items, status: :ok    
   end
 
   def create

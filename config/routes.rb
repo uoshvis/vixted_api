@@ -10,7 +10,11 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :create, :destroy] do
         resources :items, only: [:index, :show]
       end
-      resources :items
+      resources :items do
+        collection do
+          get 'search'
+        end
+      end
       # Auth routes
       get "/me", to: "users#me"
       post "/auth/login", to: "auth#login"
