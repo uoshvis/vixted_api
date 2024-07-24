@@ -91,6 +91,7 @@ rails test
 | api_v1_users         | POST   | /api/v1/users(.:format)                     | api/v1/users#create     |
 | api_v1_user          | GET    | /api/v1/users/:id(.:format)                 | api/v1/users#show       |
 | api_v1_user          | DELETE | /api/v1/users/:id(.:format)                 | api/v1/users#destroy    |
+| search_api_v1_items  | GET    | /api/v1/items/search(.:format)              | api/v1/items#search     |
 | api_v1_items         | GET    | /api/v1/items(.:format)                     | api/v1/items#index      |
 | api_v1_items         | POST   | /api/v1/items(.:format)                     | api/v1/items#create     |
 | api_v1_item          | GET    | /api/v1/items/:id(.:format)                 | api/v1/items#show       |
