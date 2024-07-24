@@ -3,6 +3,7 @@ require "test_helper"
 class Api::V1::ItemsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = CustomFunctions.create_user_with_items
+    @item1 = create(:item, title: 'Good things inside', description: 'Take it, have a good time', user: @user)
     post "/api/v1/auth/login",
     params: {username: @user.username, password: @user.password},
     as: :json
@@ -10,6 +11,7 @@ class Api::V1::ItemsControllerTest < ActionDispatch::IntegrationTest
     @token = response.parsed_body["token"]
 
     @other_user = CustomFunctions.create_user_with_items
+    @item2 = create(:item, title: 'Bad time thing ', description: 'Joke, not bad things', user: @other_user)
     post "/api/v1/auth/login",
     params: {username: @other_user.username, password: @other_user.password},
     as: :json
@@ -93,5 +95,49 @@ class Api::V1::ItemsControllerTest < ActionDispatch::IntegrationTest
 
     json_response = JSON.parse(response.body)
     assert_not_empty json_response['error']
+  end
+
+  test "should get items by title" do
+    get "/api/v1/items/search", params: { title: 'Good' }
+    assert_response :success
+
+    json_response = JSON.parse(response.body)
+    assert_equal 1, json_response.length
+    assert_equal @item1.title, json_response.first['title']
+  end
+
+  test "should get items by description" do
+    get "/api/v1/items/search", params: { description: 'time' }
+    assert_response :success
+
+    json_response = JSON.parse(response.body)
+    assert_equal 1, json_response.length
+    assert_equal @item1.description, json_response.first['description']
+  end
+
+  test "should get items by title or description" do
+    get "/api/v1/items/search", params: { title: 'Good', description: 'joke' }
+    assert_response :success
+
+    json_response = JSON.parse(response.body)
+    assert_equal 2, json_response.length
+    assert_includes json_response.map { |item| item['title'] }, @item1.title
+    assert_includes json_response.map { |item| item['title'] }, @item2.title
+  end
+
+  test "should return empty result when no params provided" do
+    get "/api/v1/items/search"
+    assert_response :success
+
+    json_response = JSON.parse(response.body)
+    assert_equal 0, json_response.length
+  end
+
+  test "should return empty result when only description is empty" do
+    get "/api/v1/items/search", params: { description: '' }
+    assert_response :success
+
+    json_response = JSON.parse(response.body)
+    assert_equal 0, json_response.length
   end
 end

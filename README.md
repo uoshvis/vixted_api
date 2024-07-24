@@ -16,6 +16,8 @@ A simple API built with Ruby on Rails to demonstrate basic CRUD operations. This
    - [Running the Server](#running-the-server)
    - [Running Tests](#running-tests)
 4. [API Endpoints](#api-endpoints)
+   - [Live Server](#live-server)
+   - [Example Request and Response](#example-request-and-response)
 5. [Technologies Used](#technologies-used)
 7. [License](#license)
 8. [Contact](#contact)
@@ -89,6 +91,7 @@ rails test
 | api_v1_users         | POST   | /api/v1/users(.:format)                     | api/v1/users#create     |
 | api_v1_user          | GET    | /api/v1/users/:id(.:format)                 | api/v1/users#show       |
 | api_v1_user          | DELETE | /api/v1/users/:id(.:format)                 | api/v1/users#destroy    |
+| search_api_v1_items  | GET    | /api/v1/items/search(.:format)              | api/v1/items#search     |
 | api_v1_items         | GET    | /api/v1/items(.:format)                     | api/v1/items#index      |
 | api_v1_items         | POST   | /api/v1/items(.:format)                     | api/v1/items#create     |
 | api_v1_item          | GET    | /api/v1/items/:id(.:format)                 | api/v1/items#show       |
@@ -98,7 +101,18 @@ rails test
 | api_v1_me            | GET    | /api/v1/me(.:format)                        | api/v1/users#me         |
 | api_v1_auth_login    | POST   | /api/v1/auth/login(.:format)                | api/v1/auth#login       |
 
-#### Example Request and Response
+### Live Server
+
+[https://vixted-api.onrender.com/api/v1/items](https://vixted-api.onrender.com/api/v1/items)
+
+To use live version:
+
+1. Create user.
+2. Get token.
+3. Use token for CRUD.
+
+### Example Request and Response
+
 Request
 
 ```
